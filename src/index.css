@@ -1,0 +1,93 @@
+/* --- Tailwind Directives MUST go at the top --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Your Custom CSS Foundation --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-app: #ffffff;
+  --bg-sidebar: #f9fafb;
+  --bg-card: #ffffff;
+  --border: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --accent: #000000;
+  --hover: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  outline: none;
+  padding: 8px 12px;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.1s;
+}
+
+.sidebar-item.active {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.sidebar-item:hover:not(.active) {
+  background: #f9fafb;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade {
+  animation: fadeIn 0.2s ease-out;
+}
