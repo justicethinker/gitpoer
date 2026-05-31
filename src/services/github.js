@@ -1,16 +1,16 @@
 import { GITHUB_API_BASE, GITHUB_RAW_BASE } from '../config/constants';
 
 export const parseGitHubUrl = (url) => {
-  const match = url.match(/github.com/([^/]+)/([^/s?#]+)/);
+  const match = url.match(/github\.com\/([^/]+)\/([^/\s?#]+)/);
   if (!match) return null;
-  return { owner: match[1], repo: match[2].replace(/.git$/, "") };
+  return { owner: match[1], repo: match[2].replace(/\.git$/, "") };
 };
 
 export const fetchRepoData = async (owner, repo) => {
   const [repoRes, treeRes, languagesRes] = await Promise.all([
-    fetch(),
-    fetch(),
-    fetch(),
+    fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`),
+    fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}/git/trees/HEAD?recursive=1`),
+    fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}/languages`),
   ]);
   
   if (!repoRes.ok) throw new Error("Repo not found or is private.");
@@ -26,10 +26,10 @@ export const fetchFileContent = async (owner, repo, path, branch = "main") => {
   const branches = [branch, "master", "main"];
   for (const b of branches) {
     try {
-      const res = await fetch();
+      const res = await fetch(`${GITHUB_RAW_BASE}/${owner}/${repo}/${b}/${path}`);
       if (res.ok) return await res.text();
     } catch (err) {
-      console.error(, err);
+      console.error("Error fetching raw file content:", err);
     }
   }
   return null;

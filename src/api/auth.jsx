@@ -11,6 +11,14 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem('gitpoer_user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      const mockUser = {
+        name: "GitPoer Developer",
+        username: "gitpoer-developer",
+        avatar_url: "https://github.com/identicons/gitpoer.png"
+      };
+      setUser(mockUser);
+      localStorage.setItem('gitpoer_user', JSON.stringify(mockUser));
     }
     setLoading(false);
   }, []);
